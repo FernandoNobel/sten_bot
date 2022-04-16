@@ -135,7 +135,8 @@ async def new(ctx, *args):
 
 @bot.command(
     name='clean', 
-    help='Limpia la mesa de combate'
+    help='Limpia la mesa de combate',
+    aliases=['c']
     )
 async def clean(ctx):
     bot.combat_data = []
@@ -169,6 +170,25 @@ async def duplicate(ctx, character_id: int):
 
             break
         i += 1
+
+    await ctx.send(print_combat_table())
+
+@bot.command(
+    name='eliminate', 
+    help='Borra un personaje',
+    aliases=['e']
+    )
+async def eliminate(ctx, character_id: int):
+
+    i = 0
+    data = []
+
+    while i < len(bot.combat_data):
+        if (bot.combat_data[i])['id'] != character_id:
+            data.append(bot.combat_data[i])
+        i += 1
+
+    bot.combat_data = data
 
     await ctx.send(print_combat_table())
 
