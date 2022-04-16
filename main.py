@@ -6,6 +6,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 from tabulate import tabulate
+import copy
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -152,19 +153,19 @@ async def modify(ctx, character_id: int, parameter_name: str, parameter_value):
     await ctx.send(print_combat_table())
 
 @bot.command(
-    name='clone', 
+    name='duplicate', 
     help='Crea una copia de un personaje',
-    aliases=['c']
+    aliases=['d']
     )
-async def clone(ctx, character_id: int):
+async def duplicate(ctx, character_id: int):
 
     i = 0
     while i < len(bot.combat_data):
         if (bot.combat_data[i])['id'] == character_id:
 
-            character_to_clone = bot.combat_data[i]
-            character_to_clone['id'] = generate_new_id()
-            bot.combat_data.append(character_to_clone)
+            clone = copy.copy(bot.combat_data[i])
+            clone['id'] = generate_new_id()
+            bot.combat_data.append(clone)
 
             break
         i += 1
