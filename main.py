@@ -98,7 +98,6 @@ async def roll(ctx, number_of_runes: int):
     aliases=['c']
     )
 async def combat_table(ctx):
-  
     await ctx.send(print_combat_table())
 
 @bot.command(
@@ -123,6 +122,40 @@ async def new_character(ctx):
 
     bot.combat_data.append(character)
     
+    await ctx.send(print_combat_table())
+
+@bot.command(
+    name='clean', 
+    help='Limpia la mesa de combate'
+    )
+async def clean(ctx):
+    bot.combat_data = []
+    await ctx.send(print_combat_table())
+
+@bot.command(
+    name='modify', 
+    help='Modifica un parametro de un personaje'
+    )
+async def modify_character(ctx, id: int, parameter_name: str, parameter_value):
+
+    i = 0
+
+    parameter_name = parameter_name.lower()
+
+    if parameter_name == 'id':
+        return
+
+    if parameter_name == 'nombre':
+        parameter_value = str(parameter_value)
+    else:
+        parameter_value = int(parameter_value)
+
+    while i < len(bot.combat_data):
+        if (bot.combat_data[i])['id'] == id:
+            (bot.combat_data[i])[parameter_name] = parameter_value
+            break
+        i += 1
+
     await ctx.send(print_combat_table())
 
 bot.run(TOKEN)
