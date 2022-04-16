@@ -151,4 +151,24 @@ async def modify(ctx, character_id: int, parameter_name: str, parameter_value):
 
     await ctx.send(print_combat_table())
 
+@bot.command(
+    name='clone', 
+    help='Crea una copia de un personaje',
+    aliases=['c']
+    )
+async def clone(ctx, character_id: int):
+
+    i = 0
+    while i < len(bot.combat_data):
+        if (bot.combat_data[i])['id'] == character_id:
+
+            character_to_clone = bot.combat_data[i]
+            character_to_clone['id'] = generate_new_id()
+            bot.combat_data.append(character_to_clone)
+
+            break
+        i += 1
+
+    await ctx.send(print_combat_table())
+
 bot.run(TOKEN)
