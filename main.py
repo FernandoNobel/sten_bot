@@ -192,4 +192,5 @@ async def eliminate(ctx, character_id: int):
 
     await ctx.send(print_combat_table())
 
+print('Bot ready to run!')
 bot.run(TOKEN)
