@@ -1,3 +1,7 @@
+# Install locally the Python Package.
+install:
+	pip3 install -e .
+
 # Pull changes from GitHub.
 pull:
 	git pull origin master

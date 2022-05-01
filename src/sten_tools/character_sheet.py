@@ -1,8 +1,10 @@
 import textwrap
 
 # Sheet width and height in character
-width = 79
-height = 13
+width_1 = 51
+width_2 = 28
+width   = width_1 + width_2 + 1
+height  = 13
 
 character = {
     "nombre": "Lia Raudyir",
@@ -59,15 +61,15 @@ def draw_border(sheet):
         sheet[width-1][y] = '\u2502'
 
     for y in range(height):
-        sheet[round(width/2)][y] = '\u2502'
+        sheet[width_1+1][y] = '\u2502'
 
     sheet[0][0] = '\u250c'
     sheet[width-1][0] = '\u2510'
     sheet[0][height-1] = '\u2514'
     sheet[width-1][height-1] = '\u2518'
 
-    sheet[round(width/2)][0] = '\u252c'
-    sheet[round(width/2)][height-1] = '\u2534'
+    sheet[width_1+1][0] = '\u252c'
+    sheet[width_1+1][height-1] = '\u2534'
 
     return sheet
 
@@ -136,27 +138,16 @@ sheet = draw_border(sheet)
 
 sheet = write_text(' Reglas especiales y equipo ', 2, 0, sheet)
 
-sheet = write_text(f' {character["nombre"]} ', round(width/2)+2, 0, sheet)
+sheet = write_text(f' {character["nombre"]} ', width_1+3, 0, sheet)
 
 sheet = write_text(f'[{character["nivel"]}]', width-5, 0, sheet)
 
-#text =  '''Atributos  Cualidades
-#F2 V2 P2   Agu 15 Ini 9 Vid 10
-#A3 I3 D1   Luz  1 Osc 1 Ele  2
-#R3 L1 E1   SN   3
-#
-#Combate
-#Imp Dañ  TiD          Est Alc Peso
-#  4   5  per            3   3  1.5
-#Eva Cob  Con Cor Per  Est Pen Peso
-#  3   4    0   2   2    1   0    5
-#'''
 text =  '''
-F2  Vid 10  Im     4   4
-A3  Ini  9  Da     5   5
-R3  Agu 15  TiD  per per
-            Est    3   3
-V2  Con  0  Alc    3   3
+F2  Vid 10  Im    4 
+A3  Ini  9  Da    5 
+R3  Agu 15  TiD per 
+            Est   3 
+V2  Con  0  Alc   3 
 I3  Cor  2  
 L1  Per  2  
     Luz  1  Eva   3
@@ -164,13 +155,13 @@ P2  Osc  1  Cob   4
 D1  Ele  2  Est   1
 E1  SN   3  Pen   0
 '''
-sheet = write_text(text, round(width/2)+2, 0, sheet)
+sheet = write_text(text, width_1+3, 0, sheet)
 
-text = '\n'.join(textwrap.wrap(get_equipo(character),width=37,subsequent_indent=' '))
+text = '\n'.join(textwrap.wrap(get_equipo(character),width=width_1-2,subsequent_indent=' '))
 text += '\n'
-text += '\n'.join(textwrap.wrap(get_habilidades(character),width=37,subsequent_indent=' '))
+text += '\n'.join(textwrap.wrap(get_habilidades(character),width=width_1-2,subsequent_indent=' '))
 text += '\n'
-text += '\n'.join(textwrap.wrap(get_cualidades_especiales(character),width=37,subsequent_indent=' '))
+text += '\n'.join(textwrap.wrap(get_cualidades_especiales(character),width=width_1-2,subsequent_indent=' '))
 
 sheet = write_text(text, 2, 1, sheet)
 
